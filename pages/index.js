@@ -532,15 +532,25 @@ const CanvasserApp = () => {
               &times;
             </button>
             <h2 className="text-lg font-bold mb-4">User Guide</h2>
+
             <ul className="list-disc pl-5 space-y-2">
+
+              <li>
+                <strong>Register:</strong> Register with email and password you can remember.
+              </li>
+
+              <li>
+                <strong>ALLOW LOCATION ACCESS, app will not work without it.</strong>.
+              </li>
+
+              <li>
+                <strong>Login:</strong> Inform An official to activate your account.
+              </li>
               <li>
                 <strong>Check-In:</strong> Click &quot;Check In&quot; to confirm your attendance.
               </li>
               <li>
-                <strong>Provide Feedback:</strong> Please fill out the feedback form before checking out.
-              </li>
-              <li>
-                <strong>Check-Out:</strong> You can only check out after submitting your feedback.
+                <strong>Merchant data:</strong> Please fill out the merchant Data form for each merchant you register.
               </li>
             </ul>
           </div>
@@ -575,18 +585,18 @@ const CanvasserApp = () => {
                 {isLoading ? <Loader2 className="animate-spin" /> : 'Check In'}
               </button>
             </>
-          ) 
-          : (
-            <>
-              {merchantDataForm()}
-              <button
-                onClick={handleCheckOut}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-1"
-              >
-                {isLoading ? <Loader2 className="animate-spin" /> : 'Check Out'}
-              </button>
-            </>
           )
+            : (
+              <>
+                {merchantDataForm()}
+                <button
+                  onClick={handleCheckOut}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-1"
+                >
+                  {isLoading ? <Loader2 className="animate-spin" /> : 'Check Out'}
+                </button>
+              </>
+            )
           }
           {message && <p className="text-green-500 mt-2">{message}</p>}
         </motion.div>
