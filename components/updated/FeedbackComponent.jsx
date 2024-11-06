@@ -118,12 +118,6 @@ const FeedbackComponent = () => {
                         onChange={(e) => setUserSearch(e.target.value)}
                         className="max-w-sm"
                     />
-                    <Input
-                        placeholder="Search by branch..."
-                        value={selectedBranch}
-                        onChange={(e) => setSelectedBranch(e.target.value)}
-                        className="max-w-sm"
-                    />
                 </div>
                 <div className="overflow-x-auto border rounded-lg shadow-sm">
                     {message && <p className="text-red-500 mb-4">{message}</p>}
