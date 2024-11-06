@@ -103,7 +103,7 @@ const FeedbackComponent = () => {
     const renderContent = () => {
         return (
             <div>
-                <h2 className="text-2xl font-semibold mb-4">Feedback Data</h2>
+                <h2 className="text-2xl font-semibold mb-4">Recruitment Data</h2>
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-6">
                     <Input
                         type="date"
@@ -130,23 +130,19 @@ const FeedbackComponent = () => {
                     <table className="w-full border-collapse table-auto">
                         <thead>
                             <tr className="bg-gray-200">
-                                <th className="border p-2 text-left">Name</th>
-                                <th className="border p-2 text-left">Sales</th>
-                                <th className="border p-2 text-left">Reason</th>
-                                <th className="border p-2 text-left">Improvement</th>
+                                <th className="border p-2 text-left">Merchant Code</th>
+                                <th className="border p-2 text-left">Phone</th>
+                                <th className="border p-2 text-left">Address</th>
                                 <th className="border p-2 text-left">Extra Feedback</th>
-                                <th className="border p-2 text-left">Slot Location</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredFeedbackData.map((feedback) => (
                                 <tr key={feedback.id} className="hover:bg-gray-100">
-                                    <td className="border p-2">{feedback.name}</td>
-                                    <td className="border p-2">{feedback.sales}</td>
-                                    <td className="border p-2">{feedback.reason}</td>
-                                    <td className="border p-2">{feedback.improvement}</td>
+                                    <td className="border p-2">{feedback.merchant_code}</td>
+                                    <td className="border p-2">{feedback.merchant_phone}</td>
+                                    <td className="border p-2">{feedback.merchant_address}</td>
                                     <td className="border p-2">{feedback.extra_feedback}</td>
-                                    <td className="border p-2">{feedback.slot_location}</td>
                                 </tr>
                             ))}
                         </tbody>
