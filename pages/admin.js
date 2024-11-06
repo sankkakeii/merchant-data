@@ -228,7 +228,6 @@ const AdminApp = () => {
                                         <th className="border p-2 text-left">Name</th>
                                         <th className="border p-2 text-left">Email</th>
                                         <th className="border p-2 text-left">Status</th>
-                                        <th className="border p-2 text-left">Slot Location</th>
                                         <th className="border p-2 text-left">Actions</th>
                                     </tr>
                                 </thead>
@@ -238,7 +237,6 @@ const AdminApp = () => {
                                             <td className="border p-2">{user.name}</td>
                                             <td className="border p-2">{user.email}</td>
                                             <td className="border p-2">{user.active ? 'Active' : 'Inactive'}</td>
-                                            <td className="border p-2">{user.slot_location}</td>
                                             <td className="border p-2">
                                                 <button
                                                     onClick={() => handleStatusChange(user, user.active)}

@@ -145,7 +145,6 @@ const CheckinDataComponent = () => {
                             <th className="border p-2 text-left">User ID</th>
                             <th className="border p-2 text-left">User Name</th>
                             <th className="border p-2 text-left">Location</th>
-                            <th className="border p-2 text-left">Branch</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -157,7 +156,6 @@ const CheckinDataComponent = () => {
                                     <td className="border p-2">{checkIn.user_id}</td>
                                     <td className="border p-2">{user ? user.name : 'Unknown User'}</td>
                                     <td className="border p-2">{checkIn.location}</td>
-                                    <td className="border p-2">{checkIn.branch}</td>
                                 </tr>
                             );
                         })}
