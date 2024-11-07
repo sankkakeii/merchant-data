@@ -90,7 +90,6 @@ const CanvasserApp = () => {
         throw new Error(errorData.message || 'Login failed');
       }
 
-      fetchBranches();
       return response.json();
     } catch (error) {
       setMessage(`Login failed: ${error.message}`);
