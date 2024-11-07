@@ -1,4 +1,5 @@
 const branches = [
+    "3way Communications Ltd",
     "SLOT HQ - (84 Obafemi Awolowo Way, Ikeja, Lagos)",
     "ABUJA 1 BRANCH - (Suite C16/17 New Bannex Plaza Aminu Kano Crescent, Wuse 2. Abuja)",
     "IKEJA- MEDICAL RD - (2B Medical Road Ikeja Lagos)",

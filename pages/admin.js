@@ -5,10 +5,6 @@ import branches from '@/components/branches';
 import Pagination from '@/components/Pagination';
 
 import UserChart from '@/components/admin-components/UserChart';
-import CheckInChart from '@/components/admin-components/CheckInChart';
-import SalesChart from '@/components/admin-components/SalesChart';
-import UserSalesChart from '@/components/admin-components/UserSalesChart';
-import SalesOverTimeChart from '@/components/admin-components/SalesOverTimeChart';
 import CheckinDataComponent from '@/components/updated/CheckinComponent';
 import FeedbackComponent from '@/components/updated/FeedbackComponent';
 
