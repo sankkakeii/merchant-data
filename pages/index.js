@@ -148,12 +148,6 @@ const CanvasserApp = () => {
           };
           const checkinLocation = JSON.stringify(location);
 
-          // const selectedBranch = branches.find(branch => branch.address === user.slot_location);
-          // if (!selectedBranch) throw new Error('No matching branch found for your slot location');
-
-          // const distance = getDistanceFromLatLonInMeters(location.latitude, location.longitude, selectedBranch.lat, selectedBranch.long);
-          // const isWithin400Meters = distance <= 400;
-
           const response = await fetch(`${API_URL}/supa/check-in`, {
             method: 'POST',
             headers: {
@@ -277,26 +271,45 @@ const CanvasserApp = () => {
 
   const deg2rad = deg => deg * (Math.PI / 180);
 
-  const handleFeedbackChange = e => setFeedback(e.target.value);
 
-  const fetchBranches = async () => {
-    try {
-      const response = await fetch(`${API_URL}/supa/admin/fetch-all-branches`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      if (!response.ok) throw new Error('Failed to fetch branches');
-      const data = await response.json();
-      setBranches(data);
-    } catch (error) {
-      setMessage('Error fetching branches');
-    }
-  };
+  // const handleSubmitFeedback = async (e) => {
+  //   console.log(user);
+  //   e.preventDefault();
+  //   if (!feedbackData.merchant_code.trim()) {
+  //     setMessage('Please provide merchant code.');
+  //     return;
+  //   }
 
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     const response = await fetch(`${API_URL}/supa/record-feedback`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${token}`
+  //       },
+  //       body: JSON.stringify({ feedbackData: feedbackData })
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to record Merchant data');
+  //     }
+
+  //     setMessage('Merchant data recorded successfully!');
+  //     setFeedbackData({
+  //       merchant_code: '',
+  //       merchant_phone: '',
+  //       merchant_address: '',
+  //       extraFeedback: '',
+  //     });
+  //     setIsFeedbackSubmitted(true);
+  //   } catch (error) {
+  //     console.error('Error recording Merchant data:', error);
+  //     setMessage('Failed to record Merchant data. Please try again.');
+  //   }
+  // };
 
   const handleSubmitFeedback = async (e) => {
-    console.log(user);
     e.preventDefault();
     if (!feedbackData.merchant_code.trim()) {
       setMessage('Please provide merchant code.');
@@ -305,32 +318,65 @@ const CanvasserApp = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/supa/record-feedback`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ feedbackData: feedbackData })
-      });
 
-      if (!response.ok) {
-        throw new Error('Failed to record Merchant data');
+      // Check if location services are available
+      if (!navigator.geolocation) {
+        setMessage('Geolocation is not supported by your browser.');
+        return;
       }
 
-      setMessage('Merchant data recorded successfully!');
-      setFeedbackData({
-        merchant_code: '',
-        merchant_phone: '',
-        merchant_address: '',
-        extraFeedback: '',
-      });
-      setIsFeedbackSubmitted(true);
+      // Request location permission and get the user's location
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const location = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+
+          const response = await fetch(`${API_URL}/supa/record-feedback`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              feedbackData: feedbackData,
+              location: location,
+              user: {
+                name: user.name,
+                email: user.email,
+              }
+            }),
+          });
+
+          if (!response.ok) throw new Error('Failed to record Merchant data');
+
+          setMessage('Merchant data recorded successfully!');
+          setFeedbackData({
+            merchant_code: '',
+            merchant_phone: '',
+            merchant_address: '',
+            extraFeedback: '',
+          });
+          setIsFeedbackSubmitted(true);
+        },
+        (error) => {
+          // Handle location permission errors
+          if (error.code === error.PERMISSION_DENIED) {
+            setMessage('Please allow location access to proceed.');
+          } else {
+            setMessage('Failed to retrieve location. Please try again.');
+          }
+        }
+      );
     } catch (error) {
       console.error('Error recording Merchant data:', error);
       setMessage('Failed to record Merchant data. Please try again.');
     }
   };
+
+
+
 
   const renderAuthForm = () => (
     <motion.form

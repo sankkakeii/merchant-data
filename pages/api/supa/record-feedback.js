@@ -29,7 +29,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    const { feedbackData } = req.body;
+    const { feedbackData, location } = req.body;
     const user = verifyToken(req);
 
     if (!user) {
@@ -45,7 +45,8 @@ export default async function handler(req, res) {
                 merchant_code: feedbackData.merchant_code,
                 merchant_phone: feedbackData.merchant_phone,
                 merchant_address: feedbackData.merchant_address,
-                extra_feedback: feedbackData.extraFeedback
+                extra_feedback: feedbackData.extraFeedback,
+                location: location
             }]);
 
         if (error) {
